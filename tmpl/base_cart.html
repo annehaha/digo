@@ -1,0 +1,137 @@
+<header class="eleme-header">
+    <a class="header-back" goback>
+        <svg class="eleme-svg svg-arrow-back" viewBox="0 0 13 24">
+            <use xlink:href="#svg-arrow-back"></use>
+        </svg>
+    </a>
+    <h1 class="header-title">[[cartTitle]]</h1>
+</header>
+<div class="ui-center-container" ng-show="!(total)">
+    <div class="ui-center-block">
+        <svg class="eleme-svg svg-cart" id="mcart" viewBox="0 0 14 16">
+            <use xlink:href="#svg-cart"></use>
+        </svg>
+        <p class="ui-center-block-title">空空如也</p>
+
+        <p class="ui-center-block-desc">大人！快把火锅加进来！</p>
+    </div>
+</div>
+
+<div ng-show="total">
+    <ul class="ui-block">
+        <!--<a ng-href="pack_detail.html?id=[[pack.id]]" ng-show="pack.id">-->
+            <!--<li class="pack-dish">-->
+                <!--<div class="cdish-detail">-->
+                    <!--<span class="cdish-name" ng-bind="pack.name"></span>-->
+                    <!--<span class="ui-rmb cdish-cost" ng-bind="pack.price"></span>-->
+                <!--</div>-->
+            <!--</li>-->
+        <!--</a>-->
+        <div observe-pack>
+             <div ng-repeat="pa in pack track by $index" ng-show="pa">
+				<div class="cdish-detail" ng-click="showCtrls = !showCtrls" >
+					<div class="cdish-name" ng-bind="pa.title"></div>
+					<div class="cdish-edit-number">
+						<div class="cdish-edit">
+							<span class="decrease" data-pack-price="[[pa.price]]" data-count="-1" data-pack-id="[[pa.id]]"
+								data-food-name="[[pa.title]]">-</span>
+						</div>
+						<div class="cdish-quantity" ng-bind="pa.quantity"></div>
+						<div class="cdish-edit">
+							<span class="increase" data-pack-price="[[pa.price]]" data-count="1" data-pack-id="[[pa.id]]"
+								data-pack-name="[[pa.title]]">+</span>
+						</div>
+					</div>
+					<span class="cdish-cost" ng-bind="pa.price"></span>
+					<div class="cdish-remove" data-pack-price="[[pa.price]]" data-count="0" data-pack-id="[[pa.id]]"
+					data-pack-name="[[pa.title]]">
+						<svg class="eleme-svg svg-remove" viewBox="0 0 24 32">
+							<use xlink:href="#svg-remove"></use>
+						</svg>
+					</div>
+				</div>
+				<!--
+				<div class="cdish-control" ng-class="{&#39;ui_show&#39;: showCtrls }">
+					<div class="cdish-remove" data-pack-price="[[pa.price]]" data-count="0" data-pack-id="[[pa.id]]"
+					data-pack-name="[[pa.title]]">
+						<svg class="eleme-svg svg-remove" viewBox="0 0 24 32">
+							<use xlink:href="#svg-remove"></use>
+						</svg>
+					</div>
+					<div class="cdish-edit">
+						<span class="decrease" data-pack-price="[[pa.price]]" data-count="-1" data-pack-id="[[pa.id]]"
+                          data-pack-name="[[pa.title]]">-</span>
+						<span class="increase" data-pack-price="[[pa.price]]" data-count="1" data-pack-id="[[pa.id]]"
+                          data-pack-name="[[pa.title]]">+</span>
+					</div>
+				</div>
+				-->
+			</div>
+        </div>
+
+        <div observe-order>
+            <li class="cart-dish" ng-repeat="food in list track by $index" ng-show="food">
+                <div class="cdish-detail" ng-click="showCtrls = !showCtrls" >
+                    <span class="cdish-name" ng-bind="food.name"></span>
+					<div class="cdish-edit-number">
+						<div class="cdish-edit">
+							<span class="decrease" data-food-price="[[food.price]]" data-count="-1" data-food-id="[[food.id]]"
+								data-food-name="[[food.name]]">-</span>
+						</div>
+						<span class="cdish-quantity" ng-bind="food.quantity"></span>
+						<div class="cdish-edit">
+							<span class="increase" data-food-price="[[food.price]]" data-count="1" data-food-id="[[food.id]]"
+								data-food-name="[[food.name]]">+</span>
+						</div>
+					</div>
+					<span class="cdish-cost" ng-bind="food.price"></span>
+					<div class="cdish-remove" data-food-price="[[food.price]]" data-count="0" data-food-id="[[food.id]]"
+                         data-food-name="[[food.name]]">
+                        <svg class="eleme-svg svg-remove" viewBox="0 0 24 32">
+                            <use xlink:href="#svg-remove"></use>
+                        </svg>
+                    </div>
+                </div>
+				<!--
+                <div class="cdish-control" ng-class="{&#39;ui_show&#39;: showCtrls }">
+                    <div class="cdish-remove" data-food-price="[[food.price]]" data-count="0" data-food-id="[[food.id]]"
+                         data-food-name="[[food.name]]">
+                        <svg class="eleme-svg svg-remove" viewBox="0 0 24 32">
+                            <use xlink:href="#svg-remove"></use>
+                        </svg>
+                    </div>
+                    <div class="cdish-edit">
+						<span class="decrease" data-food-price="[[food.price]]" data-count="-1" data-food-id="[[food.id]]"
+                          data-food-name="[[food.name]]">-</span>
+						<span class="increase" data-food-price="[[food.price]]" data-count="1" data-food-id="[[food.id]]"
+                          data-food-name="[[food.name]]">+</span>
+                    </div>
+                </div>
+				-->
+            </li>
+        </div>
+    </ul>
+    <footer class="cart-footer">
+        <p class="cart-summary">
+            <span ng-show="totalPack">
+				[[totalPack]]
+				<span>份套餐</span>
+			</span>
+			<span ng-show="totalPack&&totalPieces">
+				<span>+</span>
+			</span>
+            <span ng-show="totalPieces">
+				[[totalPieces]]
+				<span>份加点</span>
+			</span>
+        </p>
+		<div class="cart-summary">
+			<span>合计</span>
+			<span class="ui-rmb total-cost" ng-bind="totalAllCost"></span>
+		</div>
+        <a class="ui-btn" ng-if="!totalPack" ng-href="index.html">大人，请至少选择1个套餐</a>
+		<a class="ui-btn" ng-if="!total" ng-href="index.html">满29元起送哦</a>
+        <a ng-href="sum.html" ng-controller="sumupCtrl" ng-if="totalPack"><div class="ui-btn btn-confirm">去结算</div></a>
+    </footer>
+</div>
+

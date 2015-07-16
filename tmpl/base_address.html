@@ -1,0 +1,60 @@
+<header class="eleme-header">
+    <a class="header-back" goback>
+        <svg class="eleme-svg svg-arrow-back" viewBox="0 0 13 24">
+            <use xlink:href="#svg-arrow-back"></use>
+        </svg>
+    </a>
+    <h1 class="header-title">地址和电话</h1>
+    <!--<a class="header-helper">确认</a>-->
+    <!--<button type="submit" class="ui-btn btn-confirm" ng-disabled="addrform.$invalid||!currentPack">确定</button>-->
+</header>
+<div>
+    <form name="addrform" novalidate=""
+          ng-submit="submit()">
+        <div class="ui-padding-block">
+            <div class="input-group"
+                 ng-class="{'autoaddress': loading !== 2, 'ui_error': addrform.address.$invalid && addrform.address.$dirty && invalidaddress}">
+                <input class="ui-input" type="text" name="address" ng-model="addr.address" placeholder="送餐地址"
+                       required="" ng-minlength="3" ng-blur="message('address', 'addrform');getAlliance();">
+
+                <div class="input-tip">
+                    <span ng-show="addrform.address.$error.required">大人，您从哪里来哎～</span>
+                    <span ng-show="addrform.address.$error.minlength">送餐地址太短了，俺无法辨识啊</span>
+                </div>
+                <div class="payonline-banner" ng-show="allianceMsg">[[allianceMsg]]</div>
+                <!--<div class="payonline-banner">自提：<a href="#">查看门店分布</a></div>-->
+            </div>
+
+            <div class="input-group"
+                 ng-class="{'ui_error': addrform.phone.$invalid && addrform.phone.$dirty && invalidphone}">
+
+                <input class="ui-input" type="tel" name="phone" ng-model="addr.phone" placeholder="联系电话"
+                       required="" ng-pattern="/^((\d{3,4}-)\d{7,8})|(1[3|5|7|8|][0-9]{9})$/"
+                       ng-blur="message('phone', 'addrform')">
+
+                <div class="input-tip">
+                    <span ng-show="addrform.phone.$error.required">大人，留个电话吧！</span>
+                    <span ng-show="addrform.phone.$error.pattern">跪求正确的联系电话...</span>
+                </div>
+                <br/>
+                <button type="submit" class="ui-btn btn-confirm" ng-disabled="addrform.$invalid">确定</button>
+            </div>
+        </div>
+<div >
+   
+    <footer class="cart-footer">
+        
+    </footer>
+</div>
+
+
+
+        <footer class="cart-footer">
+         </footer>
+
+    </form>
+</div>
+
+
+
+

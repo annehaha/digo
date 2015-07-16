@@ -1,0 +1,233 @@
+<header class="eleme-header">
+    <a class="header-back" goback>
+        <svg class="eleme-svg svg-arrow-back" viewBox="0 0 13 24">
+            <use xlink:href="#svg-arrow-back"></use>
+        </svg>
+
+    </a>
+
+    <h1 class="header-title">送餐信息</h1>
+
+    <!--<a class="header-home" href="home.html">-->
+        <!--<svg class="eleme-svg svg-menu" viewBox="0 0 13 24">-->
+            <!--<use xlink:href="#svg-menu"></use>-->
+        <!--</svg>-->
+    <!--</a>-->
+	
+</header>
+<div>
+	<!--
+	<section class="ui-padding-block delivery-block" >
+		<button class="ui-btn btn-confirm"  ng-click="checkout()">
+				确认下单
+			</button>
+	</section>
+	-->
+    <section class="ui-padding-block delivery-block" ng-show="currentAddr"
+             ng-class="{ 'ui_error': addressNotFill }">
+        <div class="order-overview">
+            <p class="clear-margin" ng-bind="currentAddr.address+'（'+currentAlliance.name+'）'"> </p>
+
+            <p class="clear-margin">
+                <span ng-show="currentAddr.name" ng-bind="currentAddr.name + ' / '"></span>
+                <span ng-bind="currentAddr.phone"></span>
+                <span ng-if="currentAddr.phone_bk.length &gt; 0" ng-bind="'，' + currentAddr.phone_bk"></span>
+            </p>
+            <div class="cdish-detail delivery-block">
+                <span class="cdish-name-dilivery">订单总计</span>
+                <div class="ui-rmb cdish-cost cdish-cost-all">
+					<span>[[cost.total]]</span>
+					<span ng-if="coupon.cut_price">-</span>
+					<span ng-if="coupon.cut_price">[[coupon.cut_price]]</span>
+				</div>
+            </div>
+        </div>
+        <!--<svg class="eleme-svg svg-arrow-forward" viewBox="0 0 13 24">-->
+            <!--<use xlink:href="#svg-arrow-forward"></use>-->
+        <!--</svg>-->
+    </section>
+
+    <!--送达时间和备注-->
+    <section class="ui-block delivery-misc">
+        <div class="delivery-block">
+            <h3 class="dblock-title">预约送餐时间</h3>
+            <div class="dblock-content">
+                <select class="delivery-time" name="bookTime"  ng-model="booktime" dir="rtl"
+                        ng-options="time as (time | limitTo:5) for time in book_times">
+                    <option value="">请选择</option>
+                </select>
+                <svg class="eleme-svg svg-arrow-forward" viewBox="0 0 13 24">
+                    <use xlink:href="#svg-arrow-forward"></use>
+                </svg>
+            </div>
+        </div>
+
+        <!--备注-->
+        <div class="delivery-block" ng-click="showNote = !showNote">
+            <h3 class="dblock-title">订单备注</h3>
+            <div class="dblock-content">
+                <span class="dblock-content-text" ng-bind="note ? note : '无订单备注'"></span>
+                <svg class="eleme-svg svg-arrow-forward" viewBox="0 0 13 24">
+                    <use xlink:href="#svg-arrow-forward"></use>
+                </svg>
+            </div>
+        </div>
+		
+		<div class="delivery-block" ng-click="chooseCoupon()">
+            <h3 class="dblock-title">优惠券</h3>
+            <div class="dblock-content">
+                <span class="dblock-content-text" ng-bind="coupon? coupon.coupon_name : '选择优惠券'"></span>
+                <svg class="eleme-svg svg-arrow-forward" viewBox="0 0 13 24">
+                    <use xlink:href="#svg-arrow-forward"></use>
+                </svg>
+            </div>
+        </div>
+    </section>
+    <!--&lt;!&ndash;计价&ndash;&gt;-->
+    <!--<section class="ui-block delivery-misc" ng-show="cost.total">-->
+        <!--<div class="cdish-detail delivery-block">-->
+            <!--<span class="cdish-name-dilivery">订单总计</span>-->
+            <!--<span class="ui-rmb cdish-cost cdish-cost-all" ng-bind="cost.total"></span>-->
+        <!--</div>-->
+        <!--<div class="delivery-cart-detail">-->
+            <!--<div class="cdish-detail delivery-block">-->
+                <!--<span class="cdish-name-dilivery">基础套餐</span>-->
+                <!--<span class="ui-rmb cdish-cost" ng-bind="cost.pack"></span>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;<div class="cdish-detail delivery-block">&ndash;&gt;-->
+                <!--&lt;!&ndash;<span class="cdish-name-dilivery">菜品加点</span>&ndash;&gt;-->
+                <!--&lt;!&ndash;<span class="ui-rmb cdish-cost" ng-bind="cost.extra"></span>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--&lt;!&ndash;<div class="cdish-detail delivery-block">&ndash;&gt;-->
+                <!--&lt;!&ndash;<span class="cdish-name-dilivery">优惠码</span>&ndash;&gt;-->
+                <!--&lt;!&ndash;<span class="ui-rmb cdish-cost" ng-bind="cost.discount"></span>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--</div>-->
+    <!--</section>-->
+    <!--支付方式-->
+    <section class="ui-block delivery-misc">
+        <div class="cdish-detail delivery-block">
+            <span class="cdish-name-dilivery">支付方式
+            </span>
+        </div>
+        <div class="cdish-detail delivery-block payonline-item" ng-repeat="item in payInfo.item"
+             ng-click="toggle($index)">
+
+              <span class="cdish-name-dilivery payonline-item-name">
+                <span ng-bind="item">
+                </span>
+              </span>
+            <!--蓝底-->
+              <span class="payonline-button" ng-show="$index === payInfo.index">
+                  <svg class="eleme-svg svg-selected" width="20px" height="20px" viewBox="0 0 120 120">
+                      <use xlink:href="#svg-selected"></use>
+                  </svg>
+              </span>
+            <!--灰底-->
+              <span class="payonline-button" ng-hide="$index === payInfo.index">
+                  <svg class="eleme-svg svg-unselected" viewBox="0 0 120 120">
+                      <use xlink:href="#svg-selected"></use>
+                  </svg>
+              </span>
+        </div>
+
+    </section>
+    <!--所需锅具-->
+     <section class="ui-block delivery-misc">
+        <div class="cdish-detail delivery-block">
+            <span class="cdish-name-dilivery-dilivery">迷你电煮锅如何获得？</span>
+        </div>
+		<div class="cdish-detail delivery-block payonline-item">
+			 <div class="delivery-block-potinfo-text">
+				  <span class="delivery-block-potinfo-text-name">
+					<span>充值199=免费拿锅</span>
+				  </span>
+				  <span class="delivery-block-potinfo-text-desc">
+					<span>首次充值199送锅</span>
+				  </span>
+				  <span class="delivery-block-potinfo-text-desc">
+					<span>大人，咱们先吃，觉得合适再充值,下月开放充值钮钮:)</span>
+				  </span>
+			 </div>
+              <!--蓝底-->
+              <span class="payonline-button" ng-show="false">
+                  <svg class="eleme-svg svg-selected" width="20px" height="20px" viewBox="0 0 120 120">
+                  <use xlink:href="#svg-selected"></use>
+                  </svg>
+              </span>
+              <!--灰底-->
+              <span class="payonline-button" ng-hide="true">
+                  <svg class="eleme-svg svg-unselected" viewBox="0 0 120 120">
+                  <use xlink:href="#svg-selected"></use>
+                  </svg>
+              </span>
+		</div>
+        <div class="cdish-detail delivery-block payonline-item" ng-repeat="item in potInfo.item"
+             ng-click="togglePot($index)">
+			 <div class="delivery-block-potinfo-text">
+				  <span class="delivery-block-potinfo-text-name">
+					<span ng-bind="item.name"></span>
+				  </span>
+				  <span class="delivery-block-potinfo-text-desc">
+					<span ng-bind="item.desc1"></span>
+				  </span>
+				  <span class="delivery-block-potinfo-text-desc">
+					<span ng-bind="item.desc2"></span>
+				  </span>
+			 </div>
+              <!--蓝底-->
+              <span class="payonline-button" ng-show="$index === potInfo.index">
+                  <svg class="eleme-svg svg-selected" width="20px" height="20px" viewBox="0 0 120 120">
+                  <use xlink:href="#svg-selected"></use>
+                  </svg>
+              </span>
+              <!--灰底-->
+              <span class="payonline-button" ng-hide="$index === potInfo.index">
+                  <svg class="eleme-svg svg-unselected" viewBox="0 0 120 120">
+                  <use xlink:href="#svg-selected"></use>
+                  </svg>
+              </span>
+        </div>
+    </section>
+
+
+    <footer class="cart-footer">
+        <button class="ui-btn btn-confirm" ng-disabled="!cost.pack" ng-click="checkout()">
+            [[ cost.pack ? '确认下单':'您还未选择套餐，请返回选择哦']]
+        </button>
+		<br/>
+		<br/>
+    </footer>
+</div>
+
+
+<!--备注       -->
+<div class="slide-block" ng-class="{ 'ui_slide_in': showNote }">
+    <header class="eleme-header">
+        <a class="header-back" ng-click="showNote = !showNote">
+            <svg class="eleme-svg svg-arrow-back" viewBox="0 0 13 24">
+                <use xlink:href="#svg-arrow-back"></use>
+            </svg>
+            返回
+        </a>
+
+        <h1 class="header-title">订单备注</h1>
+    </header>
+
+    <div class="ui-padding-block input-group">
+        <textarea class="ui-textarea" ng-model="note" placeholder="请填写订单备注"></textarea>
+
+        <div class="input-tip">请填写备注</div>
+        <div add-note="" class="delivery-quick-note">
+            <span class="dnote">没有零钱</span>
+            <span class="dnote">不要葱姜蒜</span>
+            <span class="dnote">肚子饿了快点哦！</span>
+            <span class="dnote">要帅哥送餐</span>
+            <span class="dnote">无美女，不蒂锅</span>
+            <span class="dnote"></span>
+        </div>
+    </div>
+    <footer class="cart-footer">
+        <div class="ui-btn btn-confirm" ng-click="showNote = !showNote">新增备注</div>
+    </footer>
+</div>

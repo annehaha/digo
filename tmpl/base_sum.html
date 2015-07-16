@@ -1,0 +1,188 @@
+<header class="eleme-header">
+    <a class="header-back" goback>
+        <svg class="eleme-svg svg-arrow-back" viewBox="0 0 13 24">
+            <use xlink:href="#svg-arrow-back"></use>
+        </svg>
+    </a>
+    <h1 class="header-title">地址和电话</h1>
+    <!--<a class="header-helper">确认</a>-->
+    <!--<button type="submit" class="ui-btn btn-confirm" ng-disabled="addrform.$invalid||!currentPack">确定</button>-->
+</header>
+<div>
+    <form name="addrform" novalidate=""
+          ng-submit="submit()">
+        <div class="ui-padding-block">
+            <div class="input-group"
+                 ng-class="{'autoaddress': loading !== 2, 'ui_error': addrform.address.$invalid && addrform.address.$dirty && invalidaddress}">
+				<select class="ui-input sum-district" id="district" name="district" ng-model="addre.district" ng-options="district.name for district in districts track by district.name">
+					<option value="">选择</option>
+				</select>
+                <input class="ui-input sum-address" type="text" id="address" name="address" ng-model="addr.address" placeholder="送餐地址"
+                       required="" ng-minlength="3" ng-blur="message('address', 'addrform');getAlliance();">
+                <div class="input-tip">
+                    <span ng-show="addrform.address.$error.required">大人，您从哪里来哎～</span>	
+                    <span ng-show="addrform.address.$error.minlength">大人，送餐地址太短了，请输入更详细些！</span>
+                </div>
+                <div class="payonline-banner" ng-show="allianceMsg">[[allianceMsg]]</div>
+				<div class="payonline-banner" style="color:red;" ng-show="!allianceMsg">[[allianceMsgWrong]]</div>
+
+                <!--<div class="payonline-banner">自提：<a href="#">查看门店分布</a></div>-->
+            </div>
+
+            <div class="input-group"
+                 ng-class="{'ui_error': addrform.phone.$invalid && addrform.phone.$dirty && invalidphone}">
+
+                <input class="ui-input" type="tel" id="phone" name="phone" ng-model="addr.phone" placeholder="联系电话"
+                       required="" ng-pattern="/^((\d{3,4}-)\d{7,8})|(1[3|5|7|8|][0-9]{9})$/"
+                       ng-blur="message('phone', 'addrform')">
+
+                <div class="input-tip">
+                    <span ng-show="addrform.phone.$error.required">大人，留个电话吧！</span>
+                    <span ng-show="addrform.phone.$error.pattern">跪求正确的联系电话...</span>
+                </div>
+            </div>
+        </div>
+		<div>
+			<ul class="ui-block">
+				<!--<a ng-href="pack_detail.html?id=[[pack.id]]" ng-show="pack.id">-->
+					<!--<li class="pack-dish">-->
+						<!--<div class="cdish-detail">-->
+							<!--<span class="cdish-name" ng-bind="pack.name"></span>-->
+							<!--<span class="ui-rmb cdish-cost" ng-bind="pack.price"></span>-->
+						<!--</div>-->
+					<!--</li>-->
+				<!--</a>-->
+				<div observe-pack>
+					<div ng-repeat="pa in pack track by $index" ng-show="pa">
+						<div class="cdish-detail" ng-click="showCtrls = !showCtrls" >
+							<span class="cdish-name" ng-bind="pa.title"></span>
+							<div class="cdish-edit-number">
+								<div class="cdish-edit">
+									<span class="decrease" data-pack-price="[[pa.price]]" data-count="-1" data-pack-id="[[pa.id]]"
+										data-pack-name="[[pa.title]]">-</span>
+								</div>
+								<span class="cdish-quantity" ng-bind="pa.quantity"></span>
+								<div class="cdish-edit">
+									<span class="increase" data-pack-price="[[pa.price]]" data-count="1" data-pack-id="[[pa.id]]"
+										data-pack-name="[[pa.title]]">+</span>
+								</div>
+							</div>	
+							<span class="cdish-cost" ng-bind="pa.price"></span>
+							<div class="cdish-remove" data-pack-price="[[pa.price]]" data-count="0" data-pack-id="[[pa.id]]"
+							data-pack-name="[[pa.title]]">
+								<svg class="eleme-svg svg-remove" viewBox="0 0 24 32">
+									<use xlink:href="#svg-remove"></use>
+								</svg>
+							</div>
+						</div>
+						<!--
+						<div class="cdish-control" ng-class="{&#39;ui_show&#39;: showCtrls }">
+							<div class="cdish-remove" data-pack-price="[[pa.price]]" data-count="0" data-pack-id="[[pa.id]]"
+							data-pack-name="[[pa.title]]">
+								<svg class="eleme-svg svg-remove" viewBox="0 0 24 32">
+									<use xlink:href="#svg-remove"></use>
+								</svg>
+							</div>
+							<div class="cdish-edit">
+								<span class="decrease" data-pack-price="[[pa.price]]" data-count="-1" data-pack-id="[[pa.id]]"
+								  data-pack-name="[[pa.title]]">-</span>
+								<span class="increase" data-pack-price="[[pa.price]]" data-count="1" data-pack-id="[[pa.id]]"
+								  data-pack-name="[[pa.title]]">+</span>
+							</div>
+						</div>
+						-->
+					</div>
+				</div>
+
+				<div observe-order>
+					<li class="cart-dish" ng-repeat="food in list track by $index" ng-show="food">
+						<div class="cdish-detail" ng-click="showCtrls = !showCtrls" >
+							<span class="cdish-name" ng-bind="food.name"></span>
+							<div class="cdish-edit-number">
+								<div class="cdish-edit">
+									<span class="decrease" data-food-price="[[food.price]]" data-count="-1" data-food-id="[[food.id]]"
+										data-food-name="[[food.name]]">-</span>
+								</div>
+								<span class="cdish-quantity" ng-bind="food.quantity"></span>
+								<div class="cdish-edit">
+									<span class="increase" data-food-price="[[food.price]]" data-count="1" data-food-id="[[food.id]]"
+										data-food-name="[[food.name]]">+</span>
+								</div>
+							</div>
+							<span class="cdish-cost" ng-bind="food.price"></span>
+							<div class="cdish-remove" data-food-price="[[food.price]]" data-count="0" data-food-id="[[food.id]]"
+								data-food-name="[[food.name]]">
+								<svg class="eleme-svg svg-remove" viewBox="0 0 24 32">
+									<use xlink:href="#svg-remove"></use>
+								</svg>
+							</div>
+						</div>
+						<!--
+						<div class="cdish-control" ng-class="{&#39;ui_show&#39;: showCtrls }">
+							<div class="cdish-remove" data-food-price="[[food.price]]" data-count="0" data-food-id="[[food.id]]"
+								 data-food-name="[[food.name]]">
+								<svg class="eleme-svg svg-remove" viewBox="0 0 24 32">
+									<use xlink:href="#svg-remove"></use>
+								</svg>
+							</div>
+							<div class="cdish-edit">
+								<span class="decrease" data-food-price="[[food.price]]" data-count="-1" data-food-id="[[food.id]]"
+								  data-food-name="[[food.name]]">-</span>
+								<span class="increase" data-food-price="[[food.price]]" data-count="1" data-food-id="[[food.id]]"
+								  data-food-name="[[food.name]]">+</span>
+							</div>
+						</div>
+						-->
+					</li>
+				</div>
+			</ul>
+			<footer class="cart-footer">
+				<p class="cart-summary">
+					<span ng-show="totalPack">
+						[[totalPack]]
+						<span>份套餐</span>
+					</span>
+					<span ng-show="totalPack&&totalPieces">
+						<span>+</span>
+					</span>
+					<span ng-show="totalPieces">
+						<span></span>
+						[[totalPieces]]
+						<span>份加点</span>
+					</span>
+				</p>
+				<div class="cart-summary">
+					<span>合计</span>
+					<span class="ui-rmb total-cost" ng-bind="totalAllCost"></span>
+				</div>
+			</footer>	
+		</div>
+
+
+		<div class="ui-padding-block">
+            <div class="input-group"
+                 ng-class="{'ui_error': addrform.phone.$invalid && addrform.phone.$dirty && invalidphone &&pack &&total}">
+				 <a class="ui-btn btn-confirm disabled" ng-show="!totalPack" ng-href="index.html">大人，请至少选择1份套餐<br/>返回</a>
+				 <a class="ui-btn btn-confirm disabled" ng-show="totalPack&&!total" ng-href="index.html">满29元起送哦</a>
+                <button type="submit" class="ui-btn btn-confirm" ng-disabled="addrform.$invalid" ng-show="totalPack&&total">确认订单</button>
+            </div>
+		</div>
+		
+		<div class="ui-padding-block" ng-if="addrLists.data.length > 0">
+			<div class="sum-addressList-desc">选择曾用信息:</div>
+			<div class="ui-padding-block" ng-repeat="addrList in addrLists.data">
+				<a ng-click="chooseAddr(addrList.detail_addr,addrList.phone);getAlliance();">
+					<div class="sum-addressList-address" ng-bind="addrList.detail_addr"></div>
+					<div class="sum-addressList-phone" ng-bind="addrList.phone"></div>
+				</a>
+			</div>
+		</div>
+		<div class="ui-padding-block" ng-if="!addrLists">
+			<div class="sum-tip-desc">*新用户下单享立减优惠</div>
+		</div>
+    </form>
+</div>
+
+
+
+

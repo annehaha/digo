@@ -1,0 +1,77 @@
+<header class="eleme-header">
+    <a class="header-back" goback>
+        <svg class="eleme-svg svg-arrow-back" viewBox="0 0 13 24">
+            <use xlink:href="#svg-arrow-back"></use>
+        </svg>
+    </a>
+    <h1 class="header-title">我的优惠券</h1>
+</header>
+<div class="ui-center-container" ng-if="coupons.length===0">
+    <div class="ui-center-block">
+        <svg class="eleme-svg svg-cart" id="mcart" viewBox="0 0 14 16">
+            <use xlink:href="#svg-cart"></use>
+        </svg>
+        <p class="ui-center-block-title">没有优惠券</p>
+
+        <p class="ui-center-block-desc">大人！您可选择30元换取6张5元的优惠券，还可以获得价值58元的电煮锅哦！</p>
+    </div>
+</div>
+
+<div class="ui-coupon" ng-if="coupons.length>0">
+	<div class="ui-coupon-quantity">
+	您当前有
+	<span>
+	[[coupons.length]]
+	</span>
+	张优惠券
+	</div>
+	<!-- 以下读取数据库循环显示 -->
+    <div ng-repeat="coupon in coupons">
+		<div class="ui-coupon-detail" ng-click="choose(coupon,$index)">
+			<div class="ui-coupon-detail-discount">
+				<div class="ui-coupon-detail-discount-symbol">
+				￥
+				</div>
+				<div class="ui-coupon-detail-discount-price">
+				[[coupon.cut_price]]
+				</div>
+			</div>
+			
+			<div class="ui-coupon-detail-desc">
+				<div class="ui-coupon-detail-desc-text">
+					<div class="ui-coupon-detail-desc-text-name">
+					   <span>[[coupon.coupon_name]]</span>
+					</div>
+					<div class="ui-coupon-detail-desc-text-condition">
+						<span>[[coupon.description]]</span>
+					</div>
+					<div  class="ui-coupon-detail-desc-text-condition">
+						<span>·</span>
+						<span>[[coupon.end_date]]</span>
+						<span>前使用</span>
+					</div>
+				</div>
+				<div class="ui-coupon-detail-desc-button">			
+					<!--蓝底-->
+					<span class="payonline-button" ng-show="$index === couponInfo.index">
+						<svg class="eleme-svg svg-selected" width="20px" height="20px" viewBox="0 0 120 120">
+						<use xlink:href="#svg-selected"></use>
+						</svg>
+					</span>
+					<!--灰底-->
+					<span class="payonline-button" ng-hide="$index === couponInfo.index">
+						<svg class="eleme-svg svg-unselected" viewBox="0 0 120 120">
+						<use xlink:href="#svg-selected"></use>
+						</svg>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<a ng-href="delivery.html"><div class="ui-coupon-confirm">
+		<div class="ui-coupon-confirm-check"><span>确认使用</span></div>
+	</div>
+	</a>
+</div>

@@ -1,0 +1,31 @@
+<header class="eleme-header">
+    <div class="header-back" ></div>
+    <h1 class="header-title">订单中心</h1>
+    <a class="header-helper" ng-href="tel:4000615177">客服电话</a>
+</header>
+
+<div class="ui-center-container" ng-if="!orders || orders.data.length === 0">
+    <div class="ui-center-block">
+        <svg class="eleme-svg svg-order" viewBox="0 0 41 44">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-order"></use>
+        </svg>
+        <h2 class="ui-center-block-title">你还没有下过单</h2>
+        <p class="ui-center-block-desc">快去体验一下吧</p>
+    </div>
+</div>
+
+            
+<div ng-if="orders.data.length > 0">
+    <a class="trade-order" ng-repeat="order in orders.data" ng-href="order.html?id=[[order.order_no]]">
+        <p class="torder-time" ng-bind="order.order_date"></p>
+        <div class="torder-summary">
+            <div class="torder-rst">
+                <div class="torder-misc">
+                    <p class="ui-rmb total-cost" ng-bind="order.cost"></p>
+                </div>
+            </div>
+            <div class="torder-status" order-status="" status="order">[[order.status]]</div>
+        </div>
+    </a>
+</div>
+

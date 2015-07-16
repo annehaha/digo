@@ -1,0 +1,41 @@
+<header class="eleme-header">
+    <a class="header-back" goback>
+        <svg class="eleme-svg svg-arrow-back" viewBox="0 0 13 24">
+            <use xlink:href="#svg-arrow-back"></use>
+        </svg>
+    </a>
+    <h1 class="header-title">充值与余额</h1>
+    <!--<a class="header-helper">确认</a>-->
+    <!--<button type="submit" class="ui-btn btn-confirm" ng-disabled="addrform.$invalid||!currentPack">确定</button>-->
+</header>
+<div>
+	<div class="ui-padding-block balance">
+		<img src="images/balance.png"></img>
+		<div class="balance-amount">
+			<span>余额：</span>
+			<span class="ui-rmb total-cost">199</span>
+		</div>
+	</div>
+    <div class="ui-padding-block">
+        <div class="input-group">
+			<div class="ui-input recharge-input-desc">充值金额：</div>
+            <input class="ui-input recharge-input" type="number" placeholder="请输入整数">
+        </div>
+        <div class="input-group">
+			<div class="ui-input recharge-input-desc">支付密码：</div>
+            <input class="ui-input recharge-input" type="password" placeholder="请输入6~8位">
+			<div class="recharge-tip">
+				<span>*首次充值用户,支付密码将与账号绑定,请牢记</span>
+			</div>
+        </div>
+    </div>
+	<div class="ui-padding-block">
+        <div class="input-group">
+			<a class="ui-btn btn-confirm" ng-show="1" ng-href="">去充值</a>
+        </div>
+	</div>
+</div>
+
+
+
+

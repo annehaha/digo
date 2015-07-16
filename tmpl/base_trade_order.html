@@ -1,0 +1,62 @@
+<header class="eleme-header">
+    <a class="header-back" goback>
+        <svg class="eleme-svg svg-arrow-back" viewBox="0 0 13 24">
+            <use xlink:href="#svg-arrow-back"></use>
+        </svg>
+
+    </a>
+
+    <h1 class="header-title">订单详情</h1>
+    <a class="header-helper" ng-href="tel:4000615177">客服电话</a>
+</header>
+
+
+    <div class="trade-order">
+        <p>下单时间: <span ng-bind="order.order_date"></span>
+            <span class="torder-status" order-status="order.status" status="order">[[order.status]]</span>
+        </p>
+        <div ng-if="order.expect_time&&(order.status=='待发货(已支付)'||order.status=='已支付')">
+            <p>送达时间: <span ng-bind="order.expect_time"></span><span>前</span>
+                <!--<span class="torder-status" timer expect_time="[[order.expect_time]]"></span>-->
+            </p>
+
+            <p><span timer expect_time="[[order.expect_time]]"></span>&nbsp</p>
+
+            <!--<button class="ui-btn trade-cancel-btn" ng-click="cancelOrder()" >-->
+                <!--取消订单-->
+            <!--</button>-->
+        </div>
+		<div ng-if="order.finish_date && (order.status != '已拒绝(未支付)' || order.status != '已拒绝(未支付)' )">
+            <p>完成时间: 
+				<span ng-bind="order.finish_date"></span>
+                <!--<span class="torder-status" timer expect_time="[[order.expect_time]]"></span>-->
+            </p>
+        </div>
+
+
+    </div>
+
+
+<section class="trade-block">
+    <h3 class="tblock-title">订单信息</h3>
+    <ul class="tblock-list">
+        <li ng-show="order.user_name" class="tblock-list-item" ng-bind="'姓名：' + order.user_name"></li>
+        <li class="tblock-list-item" ng-bind="'送餐地址：' + order.user_addr"></li>
+        <li class="tblock-list-item" ng-bind="'联系电话：' + order.user_tel"></li>
+        <!--li class="tblock-list-item" ng-if="order.invoice &amp;&amp; order.invoice !== '无需发票'"
+            ng-bind="'发票：' + order.invoice"></li-->
+        <li class="tblock-list-item" >订单金额：<span class="ui-rmb torder-cost">[[order.cost]]</span></li>
+		<li class="tblock-list-item" ng-bind="'支付方式：' + order.payment"></li>
+		<li class="tblock-list-item" >是否支付：
+			<span ng-show="order.if_pay">已支付</span>
+			<span ng-show="order.payment=='餐到付款'||order.payment=='上门付款'">收取现金</span>
+		</li>
+        <li class="tblock-list-item" ng-bind="'订单编号：' + order.order_no"></li>
+        <li class="tblock-list-item" ng-if="order.message &amp;&amp; order.message !== '无需备注'"
+            ng-bind="'订单备注：' + order.message"></li>
+    </ul>
+</section>
+</div>
+
+
+

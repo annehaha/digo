@@ -1,0 +1,95 @@
+<header class="eleme-header">
+    <a class="header-back" goback>
+        <svg class="eleme-svg svg-arrow-back" viewBox="0 0 13 24">
+            <use xlink:href="#svg-arrow-back"></use>
+        </svg>
+
+    </a>
+
+    <h1 class="header-title">订单支付</h1>
+
+    <!--<a class="header-home" href="home.html">-->
+        <!--<svg class="eleme-svg svg-menu" viewBox="0 0 13 24">-->
+            <!--<use xlink:href="#svg-menu"></use>-->
+        <!--</svg>-->
+    <!--</a>-->
+</header>
+<div>
+    <section class="ui-padding-block delivery-block"
+             ng-class="{ 'ui_error': addressNotFill }">
+        <div class="cdish-detail delivery-block">
+            <div class="cdish-detail delivery-block">
+                <span class="cdish-name">订单总计</span>
+                <div class="ui-rmb cdish-cost cdish-cost-all" >
+					<span>[[cost.total]]</span>
+					<span ng-if="coupon">-</span>
+					<span ng-if="coupon">[[coupon.cut_price]]</span>
+				</div>
+            </div>
+        </div>
+        <!--<svg class="eleme-svg svg-arrow-forward" viewBox="0 0 13 24">-->
+            <!--<use xlink:href="#svg-arrow-forward"></use>-->
+        <!--</svg>-->
+    </section>
+
+
+
+    <!--支付方式-->
+    <section class="ui-block delivery-misc">
+        <div class="cdish-detail delivery-block">
+            <span class="cdish-name">支付方式
+            </span>
+        </div>
+        <div class="cdish-detail delivery-block payonline-item" ng-repeat="item in payInfo.item"
+             ng-click="toggle($index)">
+
+              <span class="cdish-name payonline-item-name">
+                <span ng-bind="item">
+                </span>
+              </span>
+            <!--蓝底-->
+              <span class="payonline-button" ng-show="$index === payInfo.index">
+                  <svg class="eleme-svg svg-selected" width="20px" height="20px" viewBox="0 0 120 120">
+                      <use xlink:href="#svg-selected"></use>
+                  </svg>
+              </span>
+            <!--灰底-->
+              <span class="payonline-button" ng-hide="$index === payInfo.index">
+                  <svg class="eleme-svg svg-unselected" viewBox="0 0 120 120">
+                      <use xlink:href="#svg-selected"></use>
+                  </svg>
+              </span>
+        </div>
+        <div class="cdish-detail delivery-block payonline-item" ng-repeat="item in payInfoWay.item"
+             ng-click="toggle($index)">
+             <span class="cdish-name payonline-item2-name">
+                <span ng-bind="item">
+                </span>
+              </span>
+            <!--蓝底-->
+              <span class="payonline-button" ng-hide="$index === payInfo.index">
+                  <svg class="eleme-svg svg-selected" width="20px" height="20px" viewBox="0 0 120 120">
+                      <use xlink:href="#svg-selected"></use>
+                  </svg>
+              </span>
+            <!--灰底-->
+              <span class="payonline-button" ng-show="$index === payInfo.index">
+                  <svg class="eleme-svg svg-unselected" viewBox="0 0 120 120">
+                      <use xlink:href="#svg-selected"></use>
+                  </svg>
+              </span>
+        </div>
+    </section>
+
+
+
+    <footer class="cart-footer">
+        <button class="ui-btn btn-confirm"  ng-click="callpay()">
+            确认支付
+        </button>
+        </footer>
+</div>
+
+</div>
+
+

@@ -1,0 +1,42 @@
+<header class="eleme-header">
+    <a class="header-back" goback>
+        <svg class="eleme-svg svg-arrow-back" viewBox="0 0 13 24">
+            <use xlink:href="#svg-arrow-back"></use>
+        </svg>
+    </a>
+    <h1 class="header-title">超出范围</h1>
+	<a class="header-helper" ng-href="tel:4000615177">客服电话</a>
+    <!--<a class="header-helper">确认</a>-->
+    <!--<button type="submit" class="ui-btn btn-confirm" ng-disabled="addrform.$invalid||!currentPack">确定</button>-->
+</header>
+<div>
+	<div class="ui-padding-block">
+		<img class="area-out-img" src="images/sad.png"></img>
+		<div class="area-out-desc">由于站点配送范围的调整<br/>我们还未覆盖到您的地址...<br/>是否留下您的信息？<br/>届时将通知您并送上优惠券~</div>
+	</div>
+	<form name="addrform" novalidate="" ng-submit="">
+    <div class="ui-padding-block">
+	    <div class="input-group">
+			<div class="ui-input recharge-input-desc">您的地址：</div>
+            <input class="ui-input recharge-input" type="text" id="address" name="address" ng-model="addr.address" placeholder="送餐地址">
+        </div>
+        <div class="input-group">
+			<div class="ui-input recharge-input-desc">留下号码：</div>
+            <input class="ui-input recharge-input" type="tel" id="phone" name="phone" ng-model="addr.phone" placeholder="联系方式">
+        </div>
+    </div>
+	</form>
+	<div class="ui-padding-block">
+		<div style="font-size:92%;text-align:right">*如有其它信息反馈,请点右上角"客服电话"<br/>*欢迎您的来电</div>
+	</div>
+	<div class="ui-padding-block area-out-buttom">
+        <div class="input-group">
+			<a class="ui-btn btn-confirm" ng-click="confirm()">赶快覆盖这里</a>
+        </div>
+	</div>
+</div>
+
+
+
+
+

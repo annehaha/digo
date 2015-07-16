@@ -1,0 +1,100 @@
+<body>
+	<div class="dg-item-head">
+		<div class="dg-item-head-back">
+		<a class="header-back" goback>
+        <svg class="eleme-svg svg-arrow-back" viewBox="0 0 13 24">
+            <use xlink:href="#svg-arrow-back"></use>
+        </svg>
+		</a>
+		</div>
+		<div class="dg-item-head-title"><h2>套餐详情</h2></div>
+		<div class="dg-item-head-cart"><a ng-href="cart.html" ng-controller="cartCtrl"><div ng-bind="!total?0:total"></div></a></div>
+	</div>
+	<div class="dg-item-main">
+		<div class="dg-item-Slide">
+			<div class="dg-item-Slide-bd">
+				<ul id="dg-item-Slide-bd-slider">
+				<img ng-src="http://mydgsd.com/images/detail/[[packDetail.url1]]" style="width:100%; height:100%"/>
+				</ul>
+			</div>
+			<div class="dg-item-Slide-hd"><ul></ul></div>
+		</div>
+		<div class="dg-item-main-desc">
+			<div>[[packDetail.title]]套餐</div><div>套餐价：[[packDetail.price]]元</div>
+		</div>
+		<div class="dg-item-main-detail">
+			<div class="dg-item-main-detail-name">介绍一下我吧</div>
+			<div class="dg-item-main-detail-o">
+				<div class="dg-item-main-detail-o-intro">
+					<div class="dg-item-main-detail-o-intro-left">好名字:</div>
+					<div class="dg-item-main-detail-o-intro-right">[[packDetail.title]]套餐</div>
+				</div>
+				<div class="dg-item-main-detail-o-intro">
+					<div class="dg-item-main-detail-o-intro-left">怎么吃:</div>
+					<div class="dg-item-main-detail-o-intro-right">
+					1.主菜蔬菜煮熟蘸五味酱,健康又开胃:
+					汤煮沸,放入肉品及丸类（或菌菇类）再放一半蔬菜,再煮沸捞出蘸五味酱最对味。<br/>
+					2.面条配蔬菜,肚子饱饱真过瘾:
+					面条下锅煮沸5分钟再放入剩余蔬菜,再煮沸后快乐的享受营养美味蔬菜面。
+					</div>
+				</div>
+				<div class="dg-item-main-detail-o-intro">
+					<div class="dg-item-main-detail-o-intro-left">套餐内容:</div>
+					<div class="dg-item-main-detail-o-intro-right">
+						<div class="dg-item-main-detail-o-list" ng-repeat="soup in soups" scroll-it="scrollSoup">
+							<div class="dg-item-main-detail-o-list-n">[[soup.title]]*[[soup.quantity]]份</div>
+							<!--div class="dg-item-main-detail-o-list-d">￥[[soup.price|round]]</div-->
+							<!--div class="dg-item-main-detail-o-list-d">[[soup.quantity]]份</div-->
+						</div>
+						<div class="dg-item-main-detail-o-list" ng-repeat="item in packDetail.foods">
+							<div class="dg-item-main-detail-o-list-n">[[item.title]]*[[item.quantity]]份</div>
+							<!--div class="dg-item-main-detail-o-list-d">￥[[item.price|round]]</div-->
+							<!--div class="dg-item-main-detail-o-list-d">[[item.quantity]]份</div-->
+						</div>
+					</div>
+				</div>
+				<div class="dg-item-main-detail-o-intro">
+					<div class="dg-item-main-detail-o-intro-left">锅该怎么办:</div>
+					<div class="dg-item-main-detail-o-intro-right">敬请期待</div>
+				</div>
+	<!--			
+				<div class="dg-item-main-detail-o-list" ng-repeat="soup in soups" scroll-it="scrollSoup">
+					<div class="dg-item-main-detail-o-list-n">[[soup.title]]</div>
+					<div class="dg-item-main-detail-o-list-d">￥[[soup.price|round]]</div>
+					<div class="dg-item-main-detail-o-list-d">[[soup.quantity]]份</div>
+				</div>
+				<div class="dg-item-main-detail-o-list" ng-repeat="item in packDetail.foods">
+					<div class="dg-item-main-detail-o-list-n">[[item.title]]</div>
+					<div class="dg-item-main-detail-o-list-d">￥[[item.price|round]]</div>
+					<div class="dg-item-main-detail-o-list-d">[[item.quantity]]份</div>
+				</div>
+	-->
+			</div>
+			<div class="dg-item-main-detail-images">
+				<div class="dg-item-main-detail-images-image">
+					<img ng-src="http://mydgsd.com/images/detail/[[packDetail.id]]-1.jpg"/>
+				</div>
+				<div class="dg-item-main-detail-images-image">
+					<img ng-src="http://mydgsd.com/images/detail/[[packDetail.id]]-2.jpg"/>
+				</div>
+				<div class="dg-item-main-detail-images-image">
+					<img ng-src="http://mydgsd.com/images/detail/[[packDetail.id]]-3.jpg"/>
+				</div>
+				<div class="dg-item-main-detail-images-image">
+					<img ng-src="http://mydgsd.com/images/detail/[[packDetail.id]]-4.jpg"/>
+				</div>
+				<div class="dg-item-main-detail-images-image">
+					<img ng-src="http://mydgsd.com/images/detail/[[packDetail.id]]-5.jpg"/>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="dg-item-foot">
+		<div class="dg-item-foot-like"></div>
+
+		<div class="dg-item-foot-cart">
+			<a ng-click="addCart()"><span>来一份</span></a>
+		</div>
+		<div class="dg-item-foot-getit"><a ng-href="sum.html" ng-controller="sumupCtrl"><span>去结算</span></a></div>
+	</div>
+</body>

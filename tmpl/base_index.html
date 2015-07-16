@@ -1,0 +1,110 @@
+
+    <div class="dg-head">
+        <div class="dg-head-log"><img src="images/logo.jpg" alt="蒂国时代" /></div>
+        <div class="dg-head-slogan"><h2>送上门的小火锅</h2></div>
+    </div>
+    <div class="dg">
+        <div class="dg-main">
+            <div class="dg-main-left">
+				<div class="dg-main-left-tab" onclick="javascript:document.getElementById('setMeal').scrollIntoView()">
+
+					<span>单人餐</span><span>商务餐</span>
+
+				</div>
+				<div class="dg-main-left-tab" onclick="javascript:document.getElementById('addMore').scrollIntoView()">
+					<span>再加点</span><span>好单品</span>
+				</div>
+				<div class="dg-main-left-tab" onclick="javascript:document.getElementById('sauce').scrollIntoView()">
+					<span>有滋味</span><span>点酱台</span>
+				</div>
+			</div>
+			<div name="setMeal" id="setMeal"></div>
+            <div class="dg-main-right" >
+				<div class="dg-advertise">
+					<div class="dg-advertise-text">
+						<marquee direction="left" hspace="5" vspace="3" align="middle" height="20"><a style="color:#184202;font-weight:bold;font-size:90%">蒂锅漕宝路店即将开幕(本周六),新用户下单立减15元!~只有首周哦!赶快邀请身边好友与同事一人一锅,人人都能享受!~</a></marquee>
+					</div>
+				</div>
+                <div class="dg-item-container">
+                    <div class="dg-item-container-items">
+						<!--优先显示105号套餐-->
+						<div  ng-repeat="pack in packs">
+							<div ng-if="pack.id==105">
+								<div class="dg-item-container-items-item">
+									<div class="dg-item-container-items-item-img">
+										<img ng-src="http://mydgsd.com/images/order/[[pack.url1]]"  ng-class="{ 'pack-selected': pack.id==currentPack.id}" ng-click="detail(pack)">
+									</div>
+									<div class="dg-item-container-items-item-describe">
+										<div class="dg-item-container-items-item-text-name" ng-bind="pack.title"></div>
+										<div class="dg-item-container-items-item-text-price">[[pack.price|round]]元</div>
+										<div class="dg-item-container-items-item-addcart"><a  ng-click="addCart(pack)"><span>来一份</span></a></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div  ng-repeat="pack in packs" ng-if="pack.id==104||pack.id==103" >
+							<div class="dg-item-container-items-item">
+								<div class="dg-item-container-items-item-img">
+									<img ng-src="http://mydgsd.com/images/order/[[pack.url1]]"  ng-class="{ 'pack-selected': pack.id==currentPack.id}" ng-click="detail(pack)">
+								</div>
+								<div class="dg-item-container-items-item-describe">
+									<div class="dg-item-container-items-item-text-name" ng-bind="pack.title"></div>
+									<div class="dg-item-container-items-item-text-price">[[pack.price|round]]元</div>
+									<div class="dg-item-container-items-item-addcart"><a  ng-click="addCart(pack)"><span>来一份</span></a></div>
+								</div>
+							</div>
+						</div> 					
+                    </div>
+                </div>
+				<div name="addMore" id="addMore"></div>
+				<div class="dg-snacks">
+					<div class="dg-snacks-itmes"> 
+					<!--菜品加点 id30丸类 id31蔬拼 id34菇拼 id36羊 id42牛 id43虾  id45烤肠 id46鸡 id47猪 id48鱼-->
+						<div class="dg-snacks-items-item" ng-repeat="food in extraFood track by $index" id="packShow" ng-if="food.id==30||food.id==31||food.id==34||food.id==36||food.id==42||food.id==43||food.id==45||food.id==46||food.id==47||food.id==48">
+							<div class="dg-item-container-items-item-img">
+								<img  src="http://mydgsd.com/images/food/[[food.url]]" ng-class="{ 'pack-selected':0}"/>
+							</div>
+							<div class="dg-item-container-items-item-describe">
+								<div class="dg-item-container-items-item-text-name" ng-bind="food.product"></div>
+								<div class="dg-item-container-items-item-text-price">[[food.price|round]]元</div>
+								<div class="dg-item-container-items-item-addcart"><a ng-click="addExtraCart(food)"><span>来一份</span></a></div>
+							</div>
+						</div>
+					<!--酱料加点 id37五味酱 id38薄烟酱油 id39麻辣辣包-->	
+						<div name="sauce" id="sauce"></div>
+						<div class="dg-snacks-items-item" ng-repeat="food in extraFood track by $index" id="packShow" ng-if="food.id==38||food.id==37||food.id==39" >
+							<div class="dg-item-container-items-item-img">
+								<img  src="http://mydgsd.com/images/food/[[food.url]]" ng-class="{ 'pack-selected':0}"/>
+							</div>
+							<div class="dg-item-container-items-item-describe">
+								<div class="dg-item-container-items-item-text-name" ng-bind="food.product"></div>
+								<div class="dg-item-container-items-item-text-price">[[food.price]]元</div>
+								<div class="dg-item-container-items-item-addcart"><a ng-click="addExtraCart(food)"><span>来一份</span></a></div>
+							</div>
+						</div>
+					</div>
+				</div>
+            </div>
+
+        </div>
+    </div>
+    <div class="dg-foot">
+        <div class="dg-foot-left"><span>往下拉</span><span>更多菜</span></div>
+        <div class="dg-foot-container">
+            <div>
+				<a ng-href="cart.html" ng-controller="cartCtrl">
+					<span>查看订单</span>
+				</a>
+			</div>
+			<div>
+				<a ng-href="sum.html" ng-controller="sumupCtrl">
+					<span>去结算</span>
+				</a>
+			</div>
+        </div>
+
+    </div>
+
+
+
+
